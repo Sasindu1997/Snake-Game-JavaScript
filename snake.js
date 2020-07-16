@@ -1,6 +1,6 @@
 import { getInputDirection } from "./input.js"
 
-export const SNAKE_SPEED = 5
+export let SNAKE_SPEED = 5
 const snakeBody = [{ x : 11, y : 11}]
 let newSegments = 0
 
@@ -30,6 +30,17 @@ export function expandSnake(amount){
     newSegments += amount    
 }
 
+export function increaseSpeed(){
+        while(snakeBody.length % 5 === 0)
+        {
+            return(SNAKE_SPEED += 1) 
+        }
+        // if(snakeBody.length % 3 === 0){
+        //     return(SNAKE_SPEED += 1) 
+        // }
+        return
+}
+
 export function onSnake(position, {ignoreHead = false} = {}){
     return snakeBody.some((segment, index) => {
         if(ignoreHead && index === 0)return false
@@ -51,6 +62,8 @@ function equalPositions(pos1, pos2){
 function addSegments(){
     for(let i = 0; i< newSegments; i++){
         snakeBody.push({...snakeBody[snakeBody.length -1]})
+    increaseSpeed()
+
     }
     newSegments = 0
 }
